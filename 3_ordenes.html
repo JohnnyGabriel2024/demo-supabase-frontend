@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Listado de Órdenes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      color: #333;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #eaeaea;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Listado de Órdenes de Clientes</h1>
+
+  <table id="ordersTable">
+    <thead>
+      <tr>
+        <th>ID de Orden</th>
+        <th>Fecha</th>
+        <th>ID Cliente</th>
+        <th>Monto Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Las órdenes se insertarán aquí -->
+    </tbody>
+  </table>
+
+  <script>
+    const SUPABASE_URL = 'https://cdgmeebukgxmicjrykxw.supabase.co';
+    const SUPABASE_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNkZ21lZWJ1a2d4bWljanJ5a3h3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY2NDE3NTQsImV4cCI6MjA2MjIxNzc1NH0.Kt2KDtyKumv7PLXg-jc4id3qEaOs57yKDnzS_5Fhrrs';
+
+    fetch(`${SUPABASE_URL}/rest/v1/OrderEntity`, {
+      headers: {
+        apikey: SUPABASE_API_KEY,
+        Authorization: `Bearer ${SUPABASE_API_KEY}`,
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      const tbody = document.querySelector('#ordersTable tbody');
+      data.forEach(order => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${order.order_id}</td>
+          <td>${new Date(order.order_date).toLocaleDateString()}</td>
+          <td>${order.customer_id}</td>
+          <td>$${parseFloat(order.total_amount).toFixed(2)}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    })
+    .catch(error => {
+      console.error('Error al obtener órdenes desde Supabase:', error);
+    });
+  </script>
+
+</body>
+</html>
