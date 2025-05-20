@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Listado de Productos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      color: #333;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Listado de Productos</h1>
+
+  <table id="productsTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Precio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Aquí se insertarán los productos -->
+    </tbody>
+  </table>
+
+  <script>
+    const SUPABASE_URL = 'https://cdgmeebukgxmicjrykxw.supabase.co';
+    const SUPABASE_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNkZ21lZWJ1a2d4bWljanJ5a3h3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY2NDE3NTQsImV4cCI6MjA2MjIxNzc1NH0.Kt2KDtyKumv7PLXg-jc4id3qEaOs57yKDnzS_5Fhrrs';
+
+    fetch(`${SUPABASE_URL}/rest/v1/Product`, {
+      headers: {
+        apikey: SUPABASE_API_KEY,
+        Authorization: `Bearer ${SUPABASE_API_KEY}`,
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      const tbody = document.querySelector('#productsTable tbody');
+      data.forEach(product => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${product.product_id}</td>
+          <td>${product.name}</td>
+          <td>${product.description}</td>
+          <td>$${parseFloat(product.price).toFixed(2)}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    })
+    .catch(error => {
+      console.error('Error al obtener productos desde Supabase:', error);
+    });
+  </script>
+
+</body>
+</html>
