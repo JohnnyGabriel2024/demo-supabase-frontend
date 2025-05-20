@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Principal</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    .nav-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .nav-button {
+      background-color: #3498db;
+      color: white;
+      padding: 14px 24px;
+      text-decoration: none;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      width: 250px;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .nav-button:hover {
+      background-color: #2980b9;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: 50px;
+      color: #888;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Panel Principal de Navegación</h1>
+
+  <div class="nav-container">
+    <a class="nav-button" href="1_clientes.html">👤 Ver Clientes</a>
+    <a class="nav-button" href="2_productos.html">🛒 Ver Productos</a>
+    <a class="nav-button" href="3_ordenes.html">📦 Ver Órdenes</a>
+    <a class="nav-button" href="4_items_orden.html">📃 Ver Ítems de Órdenes</a>
+    
+  </div>
+
+  <footer>
+    Proyecto de Prueba con Supabase - Johnny Gabriel © 2025
+  </footer>
+
+</body>
+</html>
